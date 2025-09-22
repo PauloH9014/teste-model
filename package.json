@@ -7,5 +7,26 @@
     "lastUpdate": "2025-09-22T00:00:00.000Z",
     "conjuntos": [],
     "medidas": []
+  },
+  "description": "Um aplicativo simples e intuitivo para gerenciar medidas corporais, perfeito para costureiras, alfaiates e profissionais da moda.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PauloH9014/teste-model.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PauloH9014/teste-model/issues"
+  },
+  "homepage": "https://github.com/PauloH9014/teste-model#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
   }
 }

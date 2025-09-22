@@ -33,19 +33,6 @@
         </header>
 
         <main>
-            <div class="actions-bar">
-                <button type="button" class="btn-action" onclick="medidasModel.downloadMedidasJSON()">
-                    <i class="ph ph-download"></i>
-                    Exportar Medidas
-                </button>
-                <label class="btn-action">
-                    <i class="ph ph-upload"></i>
-                    Importar Medidas
-                    <input type="file" accept=".json" style="display: none;" 
-                        onchange="medidasModel.importMedidasJSON(this.files[0])">
-                </label>
-            </div>
-            
             <!-- Formulário para adicionar medidas -->
             <section class="form-section">
                 <h2>Adicionar Nova Medida</h2>
@@ -138,7 +125,19 @@
             </section>
 
             <section class="table-section">
-                <h2>Medidas Cadastradas</h2>
+                <div class="table-header">
+                    <h2>Medidas Cadastradas</h2>
+                    <div class="table-actions">
+                        <button type="button" class="btn-icon" title="Exportar Medidas" onclick="medidasModel.downloadMedidasJSON()">
+                            <i class="ph ph-download"></i>
+                        </button>
+                        <label class="btn-icon" title="Importar Medidas">
+                            <i class="ph ph-upload"></i>
+                            <input type="file" accept=".json" style="display: none;" 
+                                onchange="medidasModel.importMedidasJSON(this.files[0])">
+                        </label>
+                    </div>
+                </div>
                 <div class="table-container">
                     <table id="medidas-table" class="medidas-table" style="display: none;">
                         <thead>
@@ -164,6 +163,6 @@
         </main>
     </div>
 
-    <script src="assets/js/javascript.js"></script>
+    <script src="assets/js/javascript_updated.js"></script>
 </body>
 </html>

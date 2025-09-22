@@ -5,11 +5,26 @@ class FormHandler {
         this.formGroups = document.querySelectorAll('.form-group');
         this.addButton = document.querySelector('.btn-adicionar');
         this.tableBody = document.querySelector('.medidas-table tbody');
-        this.medidasData = JSON.parse(localStorage.getItem('medidas')) || [];
+        this.medidasData = [];
         
         this.initializeFormHandlers();
-        this.loadMedidas();
+        this.loadMedidasFromServer();
         this.setupFormAnimation();
+    }
+
+    async loadMedidasFromServer() {
+        try {
+            const response = await fetch('/assets/data/medidas.json');
+            if (response.ok) {
+                const data = await response.json();
+                this.medidasData = data.medidas || [];
+                this.loadMedidas();
+            } else {
+                console.error('Erro ao carregar medidas do servidor');
+            }
+        } catch (error) {
+            console.error('Erro ao carregar medidas:', error);
+        }
     }
 
     initializeFormHandlers() {
@@ -91,8 +106,8 @@ class FormHandler {
         });
     }
 
-    setupFormSubmission() {
-        this.form.addEventListener('submit', (e) => {
+    async setupFormSubmission() {
+        this.form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = new FormData(this.form);
@@ -106,11 +121,19 @@ class FormHandler {
                 dataCadastro: new Date().toISOString()
             };
 
-            this.medidasData.push(medidaData);
-            localStorage.setItem('medidas', JSON.stringify(this.medidasData));
-            
-            this.addMedidaToTable(medidaData);
-            this.form.reset();
+            try {
+                const response = await fetch('/assets/data/medidas.json', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ medidas: [...this.medidasData, medidaData] })
+                });
+
+                if (response.ok) {
+                    this.medidasData.push(medidaData);
+                    this.addMedidaToTable(medidaData);
+                    this.form.reset();
             
             // Remover classes filled de todos os campos
             this.formGroups.forEach(group => {
@@ -164,22 +187,39 @@ class FormHandler {
         });
     }
 
-    removeMedida(id) {
+    async removeMedida(id) {
         const row = this.tableBody.querySelector(`tr[data-id="${id}"]`);
         if (row) {
-            // Animar saída
-            row.animate([
-                { opacity: 1, transform: 'translateX(0)' },
-                { opacity: 0, transform: 'translateX(50px)' }
-            ], {
-                duration: 300,
-                easing: 'ease-in'
-            }).onfinish = () => {
-                row.remove();
-                this.medidasData = this.medidasData.filter(m => m.id !== id);
-                localStorage.setItem('medidas', JSON.stringify(this.medidasData));
-                this.showNotification('Medida removida com sucesso!');
-            };
+            try {
+                const updatedMedidas = this.medidasData.filter(m => m.id !== id);
+                const response = await fetch('/assets/data/medidas.json', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ medidas: updatedMedidas })
+                });
+
+                if (response.ok) {
+                    // Animar saída
+                    row.animate([
+                        { opacity: 1, transform: 'translateX(0)' },
+                        { opacity: 0, transform: 'translateX(50px)' }
+                    ], {
+                        duration: 300,
+                        easing: 'ease-in'
+                    }).onfinish = () => {
+                        row.remove();
+                        this.medidasData = updatedMedidas;
+                        this.showNotification('Medida removida com sucesso!');
+                    };
+                } else {
+                    this.showNotification('Erro ao remover medida!');
+                }
+            } catch (error) {
+                console.error('Erro ao remover medida:', error);
+                this.showNotification('Erro ao remover medida!');
+            }
         }
     }
 

@@ -66,6 +66,32 @@
     font-weight: 600;
     text-align: center;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.app-header h1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    z-index: 2;
+    display: block;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+    transform: skewX(-25deg);
+    transition: .5s;
+}
+
+.app-header h1:hover::before {
+    animation: shine 0.85s;
+}
+
+@keyframes shine {
+    100% {
+        left: 125%;
+    }
 }
 
 body {
@@ -135,8 +161,7 @@ header h1 {
     box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-.form-section h2,
-.table-section h2 {
+.form-section h2 {
     color: var(--text-color);
     margin-bottom: 25px;
     font-size: 1.6rem;
@@ -145,6 +170,60 @@ header h1 {
     position: relative;
     display: flex;
     align-items: center;
+}
+
+/* Table Header with Actions */
+.table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 12px;
+}
+
+.table-header h2 {
+    color: var(--text-color);
+    font-size: 1.6rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.table-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon:hover {
+    background-color: rgba(125, 90, 190, 0.1);
+    transform: translateY(-2px);
+}
+
+.btn-icon:active {
+    transform: translateY(0);
+}
+
+.btn-icon i {
+    font-size: 1.4rem;
+}
+
+.btn-icon input[type="file"] {
+    display: none;
 }
 
 .form-section h2::before,

@@ -1,10 +1,70 @@
 # 📏 Gerenciador de Medidas Corporais
 
-Um aplicativo simples e intuitivo para gerenciar medidas corporais, perfeito para costureiras, alfaiates e profissionais da moda.
+Um aplicativo web para gerenciar medidas corporais, desenvolvido com Node.js e Express no backend e HTML/JavaScript no frontend.
 
-![Cor Principal](https://via.placeholder.com/15/7D5ABE/7D5ABE.png) `#7D5ABE`
+## 🚀 Configuração Inicial
 
-## 📱 Como Usar
+### Pré-requisitos
+
+- Node.js (versão recomendada: 14.x ou superior)
+- npm (gerenciador de pacotes do Node.js)
+
+### Instalação
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/teste-model.git
+   cd teste-model
+   ```
+
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+3. Inicie o servidor:
+   ```bash
+   node server.js
+   ```
+
+4. Acesse: http://localhost:3000
+
+## 📁 Estrutura do Projeto
+
+```
+teste-model/
+├── assets/
+│   ├── css/
+│   │   └── style.css
+│   ├── data/
+│   │   └── medidas.json
+│   ├── img/
+│   │   ├── fediverse-logo.svg
+│   │   └── ruler.svg
+│   └── js/
+│       ├── formHandler.js
+│       └── javascript.js
+├── index.html
+├── package.json
+├── server.js
+└── README.md
+```
+
+## � Tecnologias Utilizadas
+
+- Backend:
+  - Node.js
+  - Express.js
+  - CORS middleware
+  - File System para persistência
+
+- Frontend:
+  - HTML5
+  - CSS3
+  - JavaScript (Vanilla)
+  - Fetch API para requisições
+
+## �📱 Como Usar
 
 ### 1. Adicionando uma Nova Medida
 
@@ -80,24 +140,43 @@ Um aplicativo simples e intuitivo para gerenciar medidas corporais, perfeito par
 - 🔄 Atualização em tempo real
 - 🎨 Design intuitivo
 
+## 🔄 API Endpoints
+
+### GET `/assets/data/medidas.json`
+- Retorna todas as medidas salvas
+- Formato de resposta: JSON
+- Status code:
+  - 200: Sucesso
+  - 500: Erro ao ler arquivo
+
+### POST `/assets/data/medidas.json`
+- Salva novas medidas
+- Corpo da requisição: JSON com medidas
+- Status code:
+  - 200: Sucesso
+  - 500: Erro ao salvar
+
 ## ❓ Perguntas Frequentes
 
 ### As medidas são salvas automaticamente?
-Sim! Todas as medidas são salvas automaticamente no seu navegador.
+Sim! Todas as medidas são salvas no arquivo medidas.json através da API.
 
 ### Posso editar uma medida já cadastrada?
 No momento, não é possível editar. Você precisa remover e adicionar novamente.
 
-### Perco minhas medidas ao fechar o navegador?
-Não! As medidas ficam salvas e aparecem quando você abrir novamente.
+### Onde ficam armazenadas as medidas?
+As medidas são armazenadas no servidor em `/assets/data/medidas.json`.
 
 ### Tem limite de medidas que posso cadastrar?
-Não há limite! Você pode cadastrar quantas medidas precisar.
+Não há limite! O limite depende apenas do espaço em disco do servidor.
 
 ## 🛠️ Suporte
 
-Se encontrar algum problema ou tiver dúvidas:
-1. Verifique se todos os campos estão preenchidos corretamente
+Se encontrar algum problema:
+1. Verifique se o servidor está rodando
+2. Confirme que a porta 3000 está disponível
+3. Verifique os logs do servidor
+4. Verifique as permissões do arquivo medidas.json
 2. Tente recarregar a página
 3. Se o problema persistir, limpe o histórico do navegador e tente novamente
 
