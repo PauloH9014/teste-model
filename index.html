@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Medidas</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/framer-motion/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="assets/js/formHandler.js"></script>
+    <style>
+        :root {
+            --font-primary: 'Inter', sans-serif;
+        }
+        body {
+            font-family: var(--font-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="fediverse-logo">
+                    <img src="assets/img/fediverse-logo.svg" alt="Fediverse Logo">
+                </div>
+                <div class="logo-section">
+                    <h1>Gerenciador de Medidas</h1>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="actions-bar">
+                <button type="button" class="btn-action" onclick="medidasModel.downloadMedidasJSON()">
+                    <i class="ph ph-download"></i>
+                    Exportar Medidas
+                </button>
+                <label class="btn-action">
+                    <i class="ph ph-upload"></i>
+                    Importar Medidas
+                    <input type="file" accept=".json" style="display: none;" 
+                        onchange="medidasModel.importMedidasJSON(this.files[0])">
+                </label>
+            </div>
+            
+            <!-- Formulário para adicionar medidas -->
+            <section class="form-section">
+                <h2>Adicionar Nova Medida</h2>
+                <form id="medida-form" class="medida-form">
+                    <div class="form-group">
+                        <label for="tipo-conjunto">
+                            <i class="ph ph-stack"></i>
+                            Tipo:
+                        </label>
+                        <select id="tipo-conjunto" name="tipo" required>
+                            <option value="peca">Peça Individual</option>
+                            <option value="conjunto">Conjunto de Peças</option>
+                        </select>
+                        <i class="ph ph-check-circle"></i>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="titulo-conjunto">
+                            <i class="ph ph-t-shirt"></i>
+                            Título/Nome do Conjunto ou Peça:
+                        </label>
+                        <input 
+                            type="text" 
+                            id="titulo-conjunto" 
+                            name="titulo" 
+                            placeholder="Ex: Vestido Festa, Conjunto Verão..."
+                            required
+                        >
+                        <i class="ph ph-check-circle"></i>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome-medida">
+                            <i class="ph ph-ruler"></i>
+                            Tipo da Medida:
+                        </label>
+                        <select id="nome-medida" name="nome" required>
+                            <option value="">Selecione...</option>
+                            <option value="cintura">Cintura</option>
+                            <option value="quadril">Quadril</option>
+                            <option value="busto">Busto</option>
+                            <option value="ombro">Ombro</option>
+                            <option value="manga">Comprimento Manga</option>
+                            <option value="comprimento">Comprimento Total</option>
+                            <option value="pescoco">Pescoço</option>
+                            <option value="punho">Punho</option>
+                            <option value="coxa">Coxa</option>
+                            <option value="panturrilha">Panturrilha</option>
+                            <option value="tornozelo">Tornozelo</option>
+                        </select>
+                        <i class="ph ph-check-circle"></i>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valor-medida">
+                            <i class="ph ph-number-circle-five"></i>
+                            Valor:
+                        </label>
+                        <input 
+                            type="number" 
+                            id="valor-medida" 
+                            name="valor" 
+                            step="0.1" 
+                            min="0"
+                            placeholder="0.0"
+                            required
+                        >
+                        <i class="ph ph-check-circle"></i>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="unidade-medida">
+                            <i class="ph ph-ruler-horizontal"></i>
+                            Unidade:
+                        </label>
+                        <select id="unidade-medida" name="unidade" required>
+                            <option value="">Selecione...</option>
+                            <option value="cm">Centímetros (cm)</option>
+                            <option value="mm">Milímetros (mm)</option>
+                            <option value="pol">Polegadas (pol)</option>
+                            <option value="m">Metros (m)</option>
+                        </select>
+                        <i class="ph ph-check-circle"></i>
+                    </div>
+                    <button type="submit" class="btn-adicionar">
+                        <i class="ph ph-plus-circle"></i>
+                        Adicionar Medida
+    </button>
+                </form>
+            </section>
+
+            <section class="table-section">
+                <h2>Medidas Cadastradas</h2>
+                <div class="table-container">
+                    <table id="medidas-table" class="medidas-table" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome da Medida</th>
+                                <th>Valor</th>
+                                <th>Unidade</th>
+                                <th>Data de Cadastro</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="medidas-tbody">
+                        </tbody>
+                    </table>
+                    <div id="empty-state" class="empty-state">
+                        <span class="material-icons">add_chart</span>
+                        <p>Nenhuma medida cadastrada ainda</p>
+                        <small>Comece adicionando sua primeira medida usando o formulário acima</small>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="assets/js/javascript.js"></script>
+</body>
+</html>

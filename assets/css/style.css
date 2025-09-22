@@ -1,0 +1,738 @@
+/* Reset e configurações básicas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #7D5ABE;
+    --secondary-color: #FFB367;
+    --danger-color: #FF6B6B;
+    --text-color: #2D3047;
+    --bg-color: #F5F3FF;
+    --card-bg: #ffffff;
+    --border-radius: 10px;
+    --shadow: 0 4px 6px rgba(125, 90, 190, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Header Styles */
+.app-header {
+    margin-bottom: 30px;
+    background: var(--primary-color);
+    color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+}
+
+.fediverse-logo {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.fediverse-logo img {
+    height: 3rem;
+    width: auto;
+    filter: brightness(0) invert(1); /* Isso torna o SVG branco */
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.app-header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background: var(--primary-color);
+    color: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%,
+                transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%,
+                transparent 75%, transparent);
+    background-size: 30px 30px;
+    opacity: 0.1;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    letter-spacing: 1px;
+}
+
+/* Seções principais */
+.form-section,
+.table-section {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.form-section:hover,
+.table-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.form-section h2,
+.table-section h2 {
+    color: var(--text-color);
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-section h2::before,
+.table-section h2::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background: var(--primary-color);
+    margin-right: 12px;
+    border-radius: 2px;
+}
+
+/* Formulário */
+.medida-form {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    animation: formEntrance 0.6s ease-out;
+}
+
+@keyframes formEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: showField 0.5s ease-out forwards;
+}
+
+.form-group i {
+    position: absolute;
+    right: 12px;
+    top: 45px;
+    color: var(--primary-color);
+    font-size: 20px;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.form-group i.ph {
+    font-size: 1.2rem;
+}
+
+.form-group label i.ph {
+    position: static;
+    opacity: 1;
+    margin-right: 4px;
+    color: var(--text-color);
+}
+
+.form-group.filled i {
+    color: var(--secondary-color);
+}
+
+/* Campo de título ocupa linha inteira */
+.form-group:has(#titulo-conjunto) {
+    grid-column: 1 / -1;
+    animation-delay: 0.1s;
+}
+
+/* Tipo conjunto ocupa metade */
+.form-group:has(#tipo-conjunto) {
+    grid-column: span 1;
+    animation-delay: 0.2s;
+}
+
+/* Outros campos em sequência */
+.form-group:has(#nome-medida) {
+    animation-delay: 0.3s;
+}
+
+.form-group:has(#valor-medida) {
+    animation-delay: 0.4s;
+}
+
+.form-group:has(#unidade-medida) {
+    animation-delay: 0.5s;
+}
+
+/* Botão ocupa linha inteira */
+.form-group:last-child {
+    grid-column: 1 / -1;
+    animation-delay: 0.6s;
+}
+
+@keyframes showField {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 16px;
+    padding-right: 40px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: var(--text-color);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237D5ABE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(125, 90, 190, 0.2);
+    outline: none;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+    border-color: var(--primary-color);
+}
+
+.form-group.filled input,
+.form-group.filled select {
+    border-color: var(--secondary-color);
+    background-color: rgba(255, 179, 103, 0.05);
+}
+
+.form-group input::placeholder {
+    color: #999;
+    opacity: 0.8;
+}
+
+/* Animação de validação */
+.form-group input:valid,
+.form-group select:valid {
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+}
+
+/* Estilo do botão */
+.btn-adicionar {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-adicionar:hover {
+    background: #6a4ba3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(125, 90, 190, 0.3);
+}
+
+.btn-adicionar:active {
+    transform: translateY(0);
+}
+
+.btn-adicionar i {
+    font-size: 24px;
+}
+
+/* Efeito de ripple no botão */
+.btn-adicionar::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform 0.5s, opacity 1s;
+}
+
+.btn-adicionar:active::after {
+    transform: scale(0, 0);
+    opacity: 0.3;
+    transition: 0s;
+}
+
+/* Tabela de medidas */
+.medidas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    animation: tableEntrance 0.6s ease-out;
+}
+
+@keyframes tableEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.medidas-table th,
+.medidas-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.medidas-table th {
+    font-weight: 600;
+    color: var(--primary-color);
+    background-color: rgba(125, 90, 190, 0.05);
+}
+
+.medidas-table tr {
+    transition: background-color 0.3s ease;
+}
+
+.medidas-table tr:hover {
+    background-color: rgba(125, 90, 190, 0.05);
+}
+
+.medida-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.medida-info strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.medida-info .tipo-medida {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.btn-remover {
+    background: transparent;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-remover:hover {
+    background-color: rgba(255, 107, 107, 0.1);
+    transform: scale(1.1);
+}
+
+.btn-remover i {
+    font-size: 1.2rem;
+}
+
+/* Notificações */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 16px 24px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.notification i {
+    font-size: 1.2rem;
+}
+
+/* Estilos para conjuntos de medidas */
+.conjunto-header {
+    background: rgba(125, 90, 190, 0.1);
+}
+
+.conjunto-header td {
+    padding: 20px !important;
+}
+
+.conjunto-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.conjunto-info h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.conjunto-data {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Linhas de medidas dentro do conjunto */
+tr[data-conjunto-id] {
+    background: white;
+}
+
+tr[data-conjunto-id] td {
+    padding-left: 30px;
+}
+
+tr[data-conjunto-id]:hover {
+    background: rgba(125, 90, 190, 0.05);
+}
+
+/* Barra de ações */
+.actions-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+    background: #6a4ba3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(125, 90, 190, 0.3);
+}
+
+.btn-action:active {
+    transform: translateY(0);
+}
+
+.btn-action i {
+    font-size: 1.2rem;
+}
+
+.form-group input:hover,
+.form-group select:hover {
+    border-color: var(--primary-color);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    background-color: #f8fafd;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.form-group label::after {
+    content: '';
+    height: 2px;
+    background: var(--primary-color);
+    margin-left: 8px;
+    flex: 1;
+    opacity: 0.2;
+}
+
+.btn-adicionar {
+    background: var(--primary-color);
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    width: 100%;
+    max-width: 220px;
+    margin: 10px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.btn-adicionar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.btn-adicionar:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(125, 90, 190, 0.3);
+    opacity: 0.9;
+}
+
+.btn-adicionar:hover::before {
+    left: 100%;
+}
+
+.btn-adicionar:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(125, 90, 190, 0.2);
+}
+
+/* Tabela */
+.table-container {
+  overflow-x: auto;
+}
+
+.medidas-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.medidas-table th,
+.medidas-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.medidas-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #555;
+}
+
+.medidas-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.btn-remover {
+  background-color: #e74c3c;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-remover:hover {
+  background-color: #c0392b;
+}
+
+/* Estado vazio */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #7f8c8d;
+}
+
+.empty-state.hidden {
+  display: none;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .medida-form {
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: end;
+  }
+
+  .btn-adicionar {
+    grid-column: span 3;
+    justify-self: center;
+    padding: 12px 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .form-section,
+  .table-section {
+    padding: 20px;
+  }
+
+  .medidas-table {
+    font-size: 14px;
+  }
+
+  .medidas-table th,
+  .medidas-table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .medidas-table {
+    font-size: 12px;
+  }
+
+  .btn-remover {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
