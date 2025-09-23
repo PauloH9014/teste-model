@@ -1,6 +1,4 @@
-// assets/js/formHandler.js
 
-// --- CLASSE ConjuntoMedidas ---
 class ConjuntoMedidas {
     constructor(titulo) {
         this.id = Date.now().toString(36) + Math.random().toString(36).substr(2)
@@ -11,7 +9,6 @@ class ConjuntoMedidas {
     }
 
     adicionarMedida(medida) {
-        // Previne duplicatas se a medida já foi adicionada em outro lugar
         if (!this.medidas.find(m => m.id === medida.id)) {
             medida.conjuntoId = this.id
             this.medidas.push(medida)
@@ -28,7 +25,6 @@ class ConjuntoMedidas {
     }
 }
 
-// --- CLASSE Medida ---
 class Medida {
     constructor(tipo, titulo, nome, valor, unidade) {
         this.id = Date.now().toString(36) + Math.random().toString(36).substr(2)
@@ -38,7 +34,7 @@ class Medida {
         this.valor = Number.parseFloat(valor)
         this.unidade = unidade
         this.dataCadastro = new Date()
-        this.conjuntoId = null // Será definido ao adicionar a um conjunto
+        this.conjuntoId = null
     }
 
     getDataFormatada() {
@@ -55,14 +51,12 @@ class Medida {
         )
     }
 }
-
-// --- CLASSE MedidasModel (TODO: Cole o código atualizado do MedidasModel aqui) ---
 class MedidasModel {
     constructor() {
-        this.medidas = []; // Lista plana de todas as medidas
-        this.conjuntos = []; // Lista de objetos ConjuntoMedidas
+        this.medidas = [];
+        this.conjuntos = [];
         this.observers = [];
-        this.init(); // Inicializa e carrega os dados
+        this.init();
     }
 
     async init() {
@@ -459,18 +453,14 @@ class MedidasModel {
         reader.readAsText(file);
     }
 }
-
-// --- Instância global do modelo ---
 const medidasModel = new MedidasModel();
 
-
-// --- CLASSE FormHandler (TODO: Cole o código atualizado do FormHandler aqui) ---
 class FormHandler {
     constructor() {
         this.form = document.getElementById('medida-form');
         this.formGroups = document.querySelectorAll('.form-group');
         this.addButton = document.querySelector('.btn-adicionar');
-        this.tableBody = document.querySelector('.medidas-table tbody'); // Mantém referência para o body da tabela
+        this.tableBody = document.querySelector('.medidas-table tbody');
         
         this.initializeFormHandlers();
         this.setupFormAnimation();
@@ -485,11 +475,6 @@ class FormHandler {
         this.setupFieldValidation();
         this.setupRippleEffect();
         this.setupFormSubmission();
-
-        // Configura o manipulador para o input de upload diretamente no modelo
-        // O seu HTML já chama medidasModel.importMedidasJSON(this.files[0]) no onchange do input.
-        // Para o download, o HTML também já chama medidasModel.downloadMedidasJSON().
-        // Então, não precisamos de mais listeners aqui se o HTML já faz a chamada direta.
     }
 
     setupFieldValidation() {
@@ -578,7 +563,6 @@ class FormHandler {
     }
 }
 
-// --- Inicialização quando o DOM estiver pronto ---
 let formHandler;
 document.addEventListener('DOMContentLoaded', () => {
     formHandler = new FormHandler();
