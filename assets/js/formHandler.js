@@ -106,7 +106,7 @@ class FormHandler {
         });
     }
 
-    async setupFormSubmission() {
+        async setupFormSubmission() {
         this.form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -135,15 +135,22 @@ class FormHandler {
                     this.addMedidaToTable(medidaData);
                     this.form.reset();
             
-            // Remover classes filled de todos os campos
-            this.formGroups.forEach(group => {
-                group.classList.remove('filled');
-                const checkIcon = group.querySelector('.ph-check-circle');
-                if (checkIcon) checkIcon.style.opacity = '0';
-            });
+                    this.formGroups.forEach(group => {
+                        group.classList.remove('filled');
+                        const checkIcon = group.querySelector('.ph-check-circle');
+                        if (checkIcon) checkIcon.style.opacity = '0';
+                    });
             
-            // Mostrar notificação
-            this.showNotification('Medida adicionada com sucesso!');
+                    this.showNotification('Medida adicionada com sucesso!');
+                } else {
+                    
+                    console.error('Erro ao adicionar medida:', response.statusText);
+                    this.showNotification('Erro ao adicionar medida!');
+                }
+            } catch (error) {
+                console.error('Erro ao enviar medida:', error);
+                this.showNotification('Erro ao adicionar medida!');
+            }
         });
     }
 
@@ -171,12 +178,10 @@ class FormHandler {
             </td>
         `;
 
-        // Animar entrada da nova linha
         row.style.opacity = '0';
         row.style.transform = 'translateY(20px)';
         this.tableBody.insertBefore(row, this.tableBody.firstChild);
 
-        // Aplicar animação
         row.animate([
             { opacity: 0, transform: 'translateY(20px)' },
             { opacity: 1, transform: 'translateY(0)' }
@@ -249,7 +254,6 @@ class FormHandler {
             fill: 'forwards'
         });
 
-        // Remover após 3 segundos
         setTimeout(() => {
             notification.animate([
                 { opacity: 1, transform: 'translateY(0)' },

@@ -1,16 +1,5 @@
 {
   "version": "1.0.0",
-  "lastUpdate": "2025-09-22T22:54:58.227Z",
-  "medidas": [
-    {
-      "id": "mfvq4ype8ll0o44lubb",
-      "tipo": "peca",
-      "titulo": "Camisa",
-      "nome": "cintura",
-      "valor": 7.8,
-      "unidade": "cm",
-      "dataCadastro": "2025-09-22T22:54:58.227Z",
-      "conjuntoId": null
-    }
-  ]
+  "lastUpdate": "2025-09-22T23:07:04.748Z",
+  "medidas": []
 }
