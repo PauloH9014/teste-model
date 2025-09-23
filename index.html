@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/framer-motion/dist/framer-motion.js"></script>
+    <!-- Removi framer-motion, pois não está sendo usado no JS fornecido. Adicione de volta se precisar. -->
+    <!-- <script src="https://unpkg.com/framer-motion/dist/framer-motion.js"></script> -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="assets/js/formHandler.js"></script>
     <style>
         :root {
             --font-primary: 'Inter', sans-serif;
@@ -33,7 +33,6 @@
         </header>
 
         <main>
-            <!-- Formulário para adicionar medidas -->
             <section class="form-section">
                 <h2>Adicionar Nova Medida</h2>
                 <form id="medida-form" class="medida-form">
@@ -80,7 +79,7 @@
                             <option value="pescoco">Pescoço</option>
                             <option value="punho">Punho</option>
                             <option value="coxa">Coxa</option>
-                            <option value="panturrilha">Panturrilha</option>
+                            <option value="panturrilha">Panturrilha</
                             <option value="tornozelo">Tornozelo</option>
                         </select>
                         <i class="ph ph-check-circle"></i>
@@ -120,7 +119,7 @@
                     <button type="submit" class="btn-adicionar">
                         <i class="ph ph-plus-circle"></i>
                         Adicionar Medida
-    </button>
+                    </button>
                 </form>
             </section>
 
@@ -163,6 +162,6 @@
         </main>
     </div>
 
-    <script src="assets/js/javascript_updated.js"></script>
+    <script src="assets/js/formHandler.js"></script> <!-- Carrega o script principal -->
 </body>
 </html>
