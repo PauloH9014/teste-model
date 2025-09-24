@@ -14,7 +14,6 @@ Um aplicativo web para gerenciar medidas corporais, desenvolvido com Node.js e E
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/teste-model.git
-   cd teste-model
    ```
 2. selecione a Pasta:
    ```bash
