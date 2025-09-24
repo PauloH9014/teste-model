@@ -2,31 +2,21 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path');
-const fs = require('fs').promises; // Usaremos fs.promises para operações assíncronas
-
-// Define o caminho completo para o arquivo medidas.json
+const fs = require('fs').promises;
 const MEDIDAS_FILE_PATH = path.join(__dirname, 'assets', 'data', 'medidas.json');
 
-// Configuração do CORS para permitir requisições do frontend
 app.use(cors());
 
-// Serve arquivos estáticos (HTML, CSS, JS, etc.) da raiz do projeto
-// Isso permite que seu index.html e seus scripts sejam acessíveis
 app.use(express.static(__dirname));
 
-// Habilita o parsing de JSON para requisições com Content-Type: application/json
 app.use(express.json());
 
-// --- Funções Auxiliares para Leitura/Escrita do Arquivo ---
-
-// Função para ler o conteúdo do medidas.json
 async function readMedidasFile() {
     try {
         const data = await fs.readFile(MEDIDAS_FILE_PATH, 'utf8');
         return JSON.parse(data);
     } catch (err) {
         if (err.code === 'ENOENT') {
-            // Se o arquivo não existe, retorna uma estrutura inicial vazia
             console.log('medidas.json não encontrado. Retornando estrutura inicial.');
             return {
                 version: "1.0.0",
@@ -36,11 +26,10 @@ async function readMedidasFile() {
             };
         }
         console.error('Erro ao ler medidas.json:', err);
-        throw err; // Propaga outros erros
+        throw err;
     }
 }
 
-// Função para escrever o conteúdo no medidas.json
 async function writeMedidasFile(data) {
     try {
         await fs.writeFile(MEDIDAS_FILE_PATH, JSON.stringify(data, null, 2), 'utf8');
@@ -51,10 +40,7 @@ async function writeMedidasFile(data) {
     }
 }
 
-// --- Rotas da API ---
-
-// Rota para LER medidas
-app.get('/api/medidas', async (req, res) => { // Mudamos a rota para /api/medidas
+app.get('/api/medidas', async (req, res) => {
     try {
         const data = await readMedidasFile();
         res.json(data);
@@ -63,11 +49,9 @@ app.get('/api/medidas', async (req, res) => { // Mudamos a rota para /api/medida
     }
 });
 
-// Rota para SALVAR/ATUALIZAR medidas
-// Esta rota espera receber o *estado completo* das medidas e conjuntos
-app.post('/api/medidas', async (req, res) => { // Mudamos a rota para /api/medidas e usa POST
+app.post('/api/medidas', async (req, res) => { 
     try {
-        const { medidas, conjuntos } = req.body; // Espera medidas e conjuntos no corpo da requisição
+        const { medidas, conjuntos } = req.body;
 
         if (!Array.isArray(medidas) || !Array.isArray(conjuntos)) {
             return res.status(400).json({ success: false, error: 'Dados inválidos: medidas ou conjuntos ausentes/não são arrays.' });
