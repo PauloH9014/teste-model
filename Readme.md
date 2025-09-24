@@ -16,18 +16,22 @@ Um aplicativo web para gerenciar medidas corporais, desenvolvido com Node.js e E
    git clone https://github.com/seu-usuario/teste-model.git
    cd teste-model
    ```
+2. selecione a Pasta:
+   ```bash
+   cd teste-model
+   ```
 
-2. Instale as dependências:
+3. Instale as dependências:
    ```bash
    npm install
    ```
 
-3. Inicie o servidor:
+4. Inicie o servidor:
    ```bash
    node server.js
    ```
 
-4. Acesse: http://localhost:3000
+5. Acesse: http://localhost:3000
 
 ## 📁 Estrutura do Projeto
 
@@ -43,7 +47,7 @@ teste-model/
 │   │   └── ruler.svg
 │   └── js/
 │       ├── formHandler.js
-│       └── javascript.js
+│       
 ├── index.html
 ├── package.json
 ├── server.js
