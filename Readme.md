@@ -30,7 +30,8 @@ Um aplicativo web para gerenciar medidas corporais, desenvolvido com Node.js e E
    node server.js
    ```
 
-5. Acesse: http://localhost:3000
+5. Acesse:(Precione ctrl + click no localhost)
+http://localhost:3000
 
 ## 📁 Estrutura do Projeto
 
