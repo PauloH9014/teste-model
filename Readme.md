@@ -33,6 +33,12 @@ Um aplicativo web para gerenciar medidas corporais, desenvolvido com Node.js e E
 5. Acesse:(Precione ctrl + click no localhost)
 http://localhost:3000
 
+Obs: 
+   ```
+   Execute os passos no Visual Studio Code.
+   Preferência no terminal do cmd.
+
+
 ## 📁 Estrutura do Projeto
 
 ```
