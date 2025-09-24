@@ -14,6 +14,7 @@ Um aplicativo web para gerenciar medidas corporais, desenvolvido com Node.js e E
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/teste-model.git
+   obs: mude para seu usuario.
    ```
 2. selecione a Pasta:
    ```bash
@@ -36,8 +37,8 @@ http://localhost:3000
 Obs: 
    ```
    Execute os passos no Visual Studio Code.
-   Preferência no terminal do cmd.
-
+   De Preferência no terminal do cmd.
+   ```
 
 ## 📁 Estrutura do Projeto
 
